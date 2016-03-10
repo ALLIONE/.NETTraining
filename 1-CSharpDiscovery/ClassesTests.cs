@@ -1,38 +1,68 @@
 ﻿using NFluent;
 using NUnit.Framework;
+using System.Linq;
 
 namespace CSharpDiscovery
 {
+    using System;
+
+    public class Calculator
+    {
+        public string Name = "Calculator";
+
+        public double Sum(double[] mesVals)
+        {
+            return mesVals.Sum();
+        }
+
+        public double Sum(string mesVals)
+        {
+            double resultat = 0;
+            string[] recup = mesVals.Split('+');
+            foreach (string s in recup)
+            {
+                resultat = double.Parse(s);
+            }
+            return resultat;
+        }
+
+    }
     [TestFixture]
     public class ClassesTests
     {
-        //[Test]
-        //public void CreateACalculatorClassWithADefaultConstructorAndInstanciate()
-        //{
-        //    Check.That(calculator).IsNotNull();
-        //}
+        [Test]
+        public void CreateACalculatorClassWithADefaultConstructorAndInstanciate()
+        {
+            Calculator calculator = new Calculator();
+            Check.That(calculator).IsNotNull();
+        }
 
-        //[Test]
-        //public void AddAnotherConstructorWithAFriendlyNameAndInstanciate()
-        //{
-        //    // use a public member for Name for now, i.e public string Name;
-        //    Check.That(calculator.Name).Equals("Calculator");
-        //}
+        [Test]
+        public void AddAnotherConstructorWithAFriendlyNameAndInstanciate()
+        {
+            Calculator calculator = new Calculator();
+            // use a public member for Name for now, i.e public string Name;
+            Check.That(calculator.Name).Equals("Calculator");
+        }
 
-        //[Test]
-        //public void AddAMethodThatMakeASumOfAnArrayOfDouble()
-        //{
-        //    var valuesToSum = new[] { 1.3, 1.7 };
-        //    // add a method Sum to calculator class
-        //    Check.That(sumOfTheArray).Equals(3.0);
-        //}
+        [Test]
+        public void AddAMethodThatMakeASumOfAnArrayOfDouble()
+        {
+            var valuesToSum = new[] { 1.3, 1.7 };
+            Calculator calculator = new Calculator();
+            double sumOfTheArray = calculator.Sum(valuesToSum);
+            // add a method Sum to calculator class
+            Check.That(sumOfTheArray).Equals(3.0);
+        }
 
         //[Test]
         //public void AddAMethodOverloadThatMakeASumOfTwoDoubleFromStringRepresentation()
         //{
+        //    Calculator calc = new Calculator();
         //    var sumOfTwoDoubleFromString = "1,0+2";
-        //    // add a method with the same name that uses the previous method
-        //    // tips : use string.Split
+        //    //add a method with the same name that uses the previous method
+        //    //tips: use string.Split
+        //    double onePlusTwo = calc.Sum(sumOfTwoDoubleFromString);
         //    Check.That(onePlusTwo).Equals(3.0);
         //}
 

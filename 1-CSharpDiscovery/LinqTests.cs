@@ -1,5 +1,7 @@
 ﻿namespace CSharpDiscovery
 {
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
     using NFluent;
     using NUnit.Framework;
@@ -7,47 +9,58 @@
     [TestFixture]
     public class LinqTests
     {
-        //[Test]
-        //public void UseAForeachLoopToSelectItemsStartingWithPlCaseSentitive()
-        //{
-        //    var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
-        //    var filteredItems = new List<string>();
-        //    // foreach loop to add
-        //    Check.That(filteredItems).ContainsExactly("plip", "plop", "plup");
-        //}
+        [Test]
+        public void UseAForeachLoopToSelectItemsStartingWithPlCaseSentitive()
+        {
+            var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
+            var filteredItems = new List<string>();
+            // foreach loop to add
+            foreach (string item in items)
+            {
+                if (item.Substring(0, 2) == "pl")
+                    filteredItems.Add(item);
+            }
+            Check.That(filteredItems).ContainsExactly("plip", "plop", "plup");
+        }
 
-        //[Test]
-        //public void TransformPreviousForeachLoopInALinqExpression()
-        //{
-        //    var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
-        //    // use from in/where/select LINQ syntax to the same filter as with the foreach loop
-        //    // var filteredItems = from ...
-        //    Check.That(filteredItems).ContainsExactly("plip", "plop", "plup");
-        //}
+        [Test]
+        public void TransformPreviousForeachLoopInALinqExpression()
+        {
+            var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
+            // use from in/where/select LINQ syntax to the same filter as with the foreach loop
+            // var filteredItems = from ...
+            var filteredItems = items.Where(item => item.Substring(0, 2) == "pl").ToList();
+            Check.That(filteredItems).ContainsExactly("plip", "plop", "plup");
+        }
+        
 
-        //[Test]
-        //public void ReplacePreviousLinqExpressionWithLinqExtensionMethodsOfIEnumerable()
-        //{
-        //    var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
-        //    // use System.Linq.Enumerable extension methods
-        //    Check.That(filteredItems).ContainsExactly("plip", "plop", "plup");
-        //}
+        [Test]
+        public void ReplacePreviousLinqExpressionWithLinqExtensionMethodsOfIEnumerable()
+        {
+            var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
+            // use System.Linq.Enumerable extension methods
+            IEnumerable filteredItems = items.Where(item => item.Substring(0, 2) == "pl").ToList();
+            Check.That(filteredItems).ContainsExactly("plip", "plop", "plup");
+        }
 
-        //[Test]
-        //public void UseSelectExtensionMethodToTransformFilteredItemsToUpperCase()
-        //{
-        //    var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
-        //    // use System.Linq.Enumerable extension methods
-        //    Check.That(filteredItems).ContainsExactly("PLIP", "PLOP", "PLUP");
-        //}
+        [Test]
+        public void UseSelectExtensionMethodToTransformFilteredItemsToUpperCase()
+        {
+            var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
+            // use System.Linq.Enumerable extension methods
+            List<string> filteredItems = (from item in items where item.Substring(0, 2) == "pl" select item.ToUpper()).ToList();
+            Check.That(filteredItems).ContainsExactly("PLIP", "PLOP", "PLUP");
+        }
 
-        //[Test]
-        //public void UseSkipAndTakeToKeepElementsAtAGivenRange()
-        //{
-        //    var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
-        //    // use System.Linq.Enumerable extension methods
-        //    Check.That(twoElementsStartingAtFourth).ContainsExactly("plop", "plup");
-        //}
+        [Test]
+        public void UseSkipAndTakeToKeepElementsAtAGivenRange()
+        {
+            var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
+            // use System.Linq.Enumerable extension methods
+            var twoElementsStartingAtFourth = items.Where(x => x.Substring(0, 2) == "pl" 
+            || x.);
+            Check.That(twoElementsStartingAtFourth).ContainsExactly("plop", "plup");
+        }
 
         //[Test]
         //public void UseFirstToSelectFirstElementMatchingACondition()
