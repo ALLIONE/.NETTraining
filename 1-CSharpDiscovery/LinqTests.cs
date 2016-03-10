@@ -64,7 +64,7 @@
 
         //[Test]
         //public void UseFirstToSelectFirstElementMatchingACondition()
-        //{
+        //{  
         //    var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
         //    // use First to retrieve the first item having an 'o' at third position
         //    Check.That(firstItemHavingAnOAtThirdPosition).Equals("foo");
