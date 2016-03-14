@@ -113,7 +113,7 @@
         {
             var strings = new[] { "plip", "plop", "plup" };
             // use Aggregate with a seed value t
-            var concatenatedString = strings.Aggregate((sumAggregate, element) => ());
+            var concatenatedString = strings.Aggregate((sumAggregate, element) => ();
             Check.That(concatenatedString).Equals("Values of array are : , plip, plop, plup");
         }
     }
